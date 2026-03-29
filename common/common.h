@@ -283,10 +283,12 @@ struct common_params_sampling {
 
     // reasoning budget sampler parameters
     // these are populated by the server/CLI based on chat template params
-    int32_t                  reasoning_budget_tokens   = -1;   // -1 = disabled, >= 0 = token budget
-    std::vector<llama_token> reasoning_budget_start;           // start tag token sequence
-    std::vector<llama_token> reasoning_budget_end;             // end tag token sequence
-    std::vector<llama_token> reasoning_budget_forced;          // forced sequence (message + end tag)
+    int32_t                  reasoning_budget_tokens     = -1;  // -1 = disabled, >= 0 = token budget
+    int32_t                  reasoning_budget_conclusion = 0;   // tokens reserved for conclusion phase (0 = disabled)
+    std::string              reasoning_budget_message;          // message injected at start of conclusion phase
+    std::vector<llama_token> reasoning_budget_start;            // start tag token sequence
+    std::vector<llama_token> reasoning_budget_end;              // end tag token sequence
+    std::vector<llama_token> reasoning_budget_forced;           // forced sequence (end tag, hard-cutoff safety net)
 
     bool backend_sampling = false;
 
@@ -593,6 +595,7 @@ struct common_params {
     common_reasoning_format reasoning_format = COMMON_REASONING_FORMAT_DEEPSEEK;
     int enable_reasoning = -1; // -1 = auto, 0 = disable, 1 = enable
     int reasoning_budget = -1;
+    int reasoning_budget_conclusion = 0; // tokens reserved for conclusion phase (0 = disabled)
     std::string reasoning_budget_message; // message injected before end tag when budget exhausted
     bool prefill_assistant = true; // if true, any trailing assistant message will be prefilled into the response
     int sleep_idle_seconds = -1;   // if >0, server will sleep after this many seconds of idle time
