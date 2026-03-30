@@ -3110,7 +3110,6 @@ common_params_context common_params_parser_init(common_params & params, llama_ex
         "is injected, instead of immediately forcing the end-of-thinking tag.",
         [](common_params & params, int value) {
             if (value < 0) { throw std::invalid_argument("invalid value for --reasoning-budget-conclusion: must be >= 0"); }
-            params.reasoning_budget_conclusion = value;
             params.sampling.reasoning_budget_conclusion = value;
         }
     ).set_examples({LLAMA_EXAMPLE_SERVER, LLAMA_EXAMPLE_COMPLETION, LLAMA_EXAMPLE_CLI}).set_env("LLAMA_ARG_THINK_BUDGET_CONCLUSION"));

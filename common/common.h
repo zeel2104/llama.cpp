@@ -595,7 +595,6 @@ struct common_params {
     common_reasoning_format reasoning_format = COMMON_REASONING_FORMAT_DEEPSEEK;
     int enable_reasoning = -1; // -1 = auto, 0 = disable, 1 = enable
     int reasoning_budget = -1;
-    int reasoning_budget_conclusion = 0; // tokens reserved for conclusion phase (0 = disabled)
     std::string reasoning_budget_message; // message injected before end tag when budget exhausted
     bool prefill_assistant = true; // if true, any trailing assistant message will be prefilled into the response
     int sleep_idle_seconds = -1;   // if >0, server will sleep after this many seconds of idle time
